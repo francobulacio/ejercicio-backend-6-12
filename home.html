@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3> Ingrese un Nuevo Animal</h3>
+    <form action="" id="nuevoAnimal">
+        <label for="" >Ingrese el nombre</label>
+        <input type="text" name="nombre">
+        <label for="" >Ingrese la edad</label>
+        <input type="text" name="edad">
+        <label for="" >Ingrese el sexo</label>
+        <input type="text" name="sexo">
+        <button type="submit"> Agregar el animal</button>
+    </form>
+
+    <script>
+        const formHTML = document.getElementById("nuevoAnimal")
+        formHTML.addEventListener("submit", (e) =>{
+            e.preventDefault()
+            const inputs = formHTML.elements
+            console.log(inputs)
+            const data = {nombre: inputs.nombre.value, edad: inputs.edad.value, sexo: inputs.sexo.value}
+            console.log(data)
+            fetch('http://localhost:9000/api/v1/animalesRefujiados', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                'Content-Type': 'application/json'
+                }
+            })
+                .then( (response) => response.json()  )
+                .then (dataJson => {
+                    console.log(dataJson)
+                        alert("animal creado")
+                })
+                .catch( error => console.error(error))
+            
+            
+        })
+        
+
+    </script>
+</body>
+</html>
